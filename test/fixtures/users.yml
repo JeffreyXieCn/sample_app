@@ -6,7 +6,7 @@
 
 # two:
 #   name: MyString
-#   email: MyString
+#   email: MyString #Trigger merge conflict, and see what will happen in Git
 
 michael:
   name: Michael Example
