@@ -12,6 +12,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id]) #ToDo: what if the id doesn't not exist?
     #if(!@user || !@user.activated?)
     redirect_to root_url unless @user && @user.activated?
+    @microposts = @user.microposts.paginate(page: params[:page])
     #end
     #debugger #this will work even if running rails test
   end
@@ -64,14 +65,7 @@ class UsersController < ApplicationController
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
     end
     
-    # Confirms a logged-in user.
-    def logged_in_user
-      unless logged_in?
-        store_location
-        flash[:danger] = "Please log in."
-        redirect_to login_url
-      end
-    end
+    # Before filters
     
     # Confirms the correct user.
     def correct_user
