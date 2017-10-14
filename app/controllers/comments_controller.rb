@@ -10,6 +10,9 @@ class CommentsController < ApplicationController
     if comment.save
       flash[:success] = "Comment created!"
       redirect_back(fallback_location: root_url)
+    else
+      flash[:danger] = "Invalid comment: #{comment.errors.full_messages}"
+      redirect_back(fallback_location: root_url)
     end
     
   end
