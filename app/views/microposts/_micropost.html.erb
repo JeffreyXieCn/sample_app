@@ -12,4 +12,26 @@
                                        data: { confirm: "You sure?" } %>
     <% end %>
   </span>
+  <span>
+    <%# form_for (micropost.comments.build) do |form| %>
+    <%= form_for micropost.comments.build, url: micropost_comments_path(micropost), html: { method: :post } do |form| %>
+      <div class="field">
+        <%# form.label :content %><br>
+        <%= form.text_area :content, placeholder: "Your comment..." %>
+      </div>
+      <%= form.submit "Reply", class: "btn btn-primary" %>
+    <% end %>
+  </span>
+
+  <%# if micropost.comments.any? == "true" %>
+  <% if micropost.comments.count > 0 %>
+    <span>
+      <h3>Comments (<%= micropost.comments.count %>)</h3>
+      <ol class="microposts">
+		    <% micropost.comments.all.each do |theComm| %>
+          <%= render 'comments/comment', comment: theComm %>
+        <% end %>
+      </ol>
+    </span>
+  <% end %>
 </li>
