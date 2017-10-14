@@ -12,7 +12,8 @@
                                        data: { confirm: "You sure?" } %>
     <% end %>
   </span>
-  <span>
+  <%= gravatar_for(current_user, size: 30, cssClass: "gravatar-comment") %>
+  <span class="addcomment">
     <%# form_for (micropost.comments.build) do |form| %>
     <%= form_for micropost.comments.build, url: micropost_comments_path(micropost), html: { method: :post } do |form| %>
       <div class="field">
@@ -25,11 +26,11 @@
 
   <%# if micropost.comments.any? == "true" %>
   <% if micropost.comments.count > 0 %>
-    <span>
+    <span class="showcomment">
       <h3>Comments (<%= micropost.comments.count %>)</h3>
       <ol class="microposts">
-		    <% micropost.comments.all.each do |theComm| %>
-          <%= render 'comments/comment', comment: theComm %>
+		    <% micropost.comments.all.each do |comment| %>
+          <%= render comment %>
         <% end %>
       </ol>
     </span>
