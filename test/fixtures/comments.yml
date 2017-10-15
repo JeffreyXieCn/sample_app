@@ -1,9 +1,25 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  content: MyText
-  micropost: one
+archerComment:
+  content: "archer's Comment for michael's orange micropost"
+  created_at: <%= 10.minutes.ago %>
+  micropost: orange
+  user: archer
 
-two:
-  content: MyText
-  micropost: two
+lanaComment:
+  content: "lana's Comment for michael's orange micropost"
+  created_at: <%= Time.zone.now %>
+  micropost: orange
+  user: lana
+  
+michaelComment:
+  content: "michael's Comment for his own orange micropost"
+  created_at: <%= 2.hours.ago %>
+  micropost: orange
+  user: michael
+  
+lalaCommentArcher:
+  content: "lana's Comment for archer's ants micropost"
+  created_at: <%= 3.hours.ago %>
+  micropost: ants
+  user: lana
