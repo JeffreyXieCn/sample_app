@@ -29,7 +29,11 @@ end
 users = User.order(:created_at).take(6)
 50.times do
   content = Faker::Lorem.sentence(5)
-  users.each { |user| user.microposts.create!(content: content) }
+  #users.each { |user| user.microposts.create!(content: content) }
+  users.each do |user|
+    user.microposts.create!(content: content)
+  end
+  
 end
 
 # Following relationships
@@ -39,3 +43,15 @@ following = users[2..50]
 followers = users[3..40]
 following.each { |followed| user.follow(followed) }
 followers.each { |follower| follower.follow(user) }
+
+# Create comments
+posts = Micropost.all
+posts.each do |post|
+    number_of_comments = rand(1..4)
+    number_of_comments.times do
+      commenter = users[rand(0..50)]
+      comment = Faker::Lorem.sentence(6)
+      post.comments.create!(content: comment, user: commenter)
+    end
+end
+  
