@@ -1,26 +1,40 @@
 class CommentsController < ApplicationController
-  before_action :logged_in_user, only: [:create, :destroy]
+  before_action :logged_in_user, only: %i[create destroy]
   before_action :correct_user,   only: :destroy
     
-  def create
-    micropost = Micropost.find(params[:micropost_id])
-    comment = micropost.comments.build(comment_params)
-    #@comment.update_attribute(:user_id, current_user.id)
+  def create # TODO: Display invalid comment message in AJAX way
+    @micropost = Micropost.find(params[:micropost_id])
+    comment = @micropost.comments.build(comment_params)
+    # @comment.update_attribute(:user_id, current_user.id)
     comment.user = current_user
-    if comment.save
-      flash[:success] = "Comment created!"
-      redirect_back(fallback_location: root_url)
-    else
-      flash[:danger] = "Invalid comment: #{comment.errors.full_messages}"
-      redirect_back(fallback_location: root_url)
+    result = comment.save
+    respond_to do |format|
+      format.html do
+        if result
+          flash[:success] = 'Comment created!'
+        else
+          flash[:danger] = "Invalid comment: #{comment.errors.full_messages}"
+        end
+        redirect_back(fallback_location: root_url)
+      end
+
+      format.js { render template: 'comments/afterAction'}
     end
+
     
   end
   
   def destroy
+    @micropost = @comment.micropost
     @comment.destroy
-    flash[:success] = "Comment deleted"
-    redirect_back(fallback_location: root_url)
+    respond_to do |format|
+      format.html do
+        flash[:success] = 'Comment deleted'
+        redirect_back(fallback_location: root_url)
+      end
+
+      format.js { render template: 'comments/afterAction'}
+    end
   end
   
   private

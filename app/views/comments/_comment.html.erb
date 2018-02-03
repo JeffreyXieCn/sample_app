@@ -15,7 +15,7 @@
                                        
       <%# link_to "delete", url: micropost_comment_path(comment), method: :delete,
                                        data: { confirm: "You sure?" } %>
-      <%= link_to "delete", [comment.micropost, comment], :confirm => "Are you sure?", :method => :delete %>                                
+      <%= link_to "delete", [comment.micropost, comment], :confirm => "Are you sure?", :method => :delete, remote: true %>
     <% end %>
   </span>
 </li>

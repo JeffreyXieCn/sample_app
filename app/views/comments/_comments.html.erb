@@ -1,0 +1,27 @@
+<!-- Login is needed to add comment -->
+<% if logged_in? %>
+  <%= gravatar_for(current_user, size: 30, cssClass: "gravatar-comment") %>
+  <span class="addcomment">
+      <%# form_for (micropost.comments.build) do |form| %>
+    <%= form_for(micropost.comments.build, url: micropost_comments_path(micropost), html: { method: :post }, remote: true) do |form| %>
+        <%= render 'shared/error_messages', object: form.object %>
+      <div class="field">
+          <%# form.label :content %><br>
+        <%= form.text_area :content, placeholder: "Your comment..." %>
+        </div>
+      <%= form.submit "Reply", class: "btn btn-primary" %>
+      <% end %>
+    </span>
+<% end %>
+
+<%# if micropost.comments.any? == "true" %>
+<% if micropost.comments.count > 0 %>
+  <span class="showcomment">
+      <h3>Comments (<%= micropost.comments.count %>)</h3>
+      <ol class="microposts">
+		    <% micropost.comments.all.each do |comment| %>
+          <%= render comment %>
+        <% end %>
+      </ol>
+    </span>
+<% end %>
