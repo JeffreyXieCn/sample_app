@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   end
   
   def show
-    @user = User.find(params[:id]) #ToDo: what if the id doesn't not exist?
+    @user = User.find(params[:id]) # TODO: what if the id doesn't not exist?
     #if(!@user || !@user.activated?)
     redirect_to root_url unless @user && @user.activated?
     @microposts = @user.microposts.paginate(page: params[:page])
