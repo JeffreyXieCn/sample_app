@@ -1,9 +1,12 @@
 # Ruby on Rails Tutorial sample application
 
-This is the sample application for
+I created this "Twitter" like application while learning
 [*Ruby on Rails Tutorial:
 Learn Web Development with Rails*](http://www.railstutorial.org/)
 by [Michael Hartl](http://www.michaelhartl.com/).
+
+To make it like Twitter more, I added the function to allow users to comment on microblogs.
+I used Cloud9 IDE to develop this application, which is now running at https://weblogfromjeffrey.herokuapp.com/ , and the photos uploaded by users will be stored in AWS S3.
 
 ## License
 
